@@ -1,5 +1,4 @@
 import { arweave } from "./arweave.js";
-
 export const loginUser = async event => {
   return new Promise((resolve, reject) => {
     const input = event.target;

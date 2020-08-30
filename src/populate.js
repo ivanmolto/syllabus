@@ -1,51 +1,47 @@
-export let selectSubjects = [
-  { id: 1, text: "All" },
-  { id: 2, text: "Arts" },
-  { id: 3, text: "Business" },
-  { id: 4, text: "Computer Science" },
-  { id: 5, text: "Data Science" },
-  { id: 6, text: "IT & Engineering" },
-  { id: 7, text: "Health" },
-  { id: 8, text: "Language" },
-  { id: 9, text: "Math & Logic" },
-  { id: 10, text: "Personal Development" },
-  { id: 11, text: "Physics" },
-  { id: 12, text: "Social Sciences" },
+export let selectSubjects = [ 
+  "All", 
+  "Arts", 
+  "Business", 
+  "Computer Science", 
+  "Data Science", 
+  "IT & Engineering", 
+  "Health", 
+  "Language", 
+  "Math & Logic", 
+  "Personal Development", 
+  "Physics", 
+  "Social Sciences"
 ];
-
 export let selectLanguages = [
-  { id: 1, text: "All" },
-  { id: 2, text: "English" },
-  { id: 3, text: "Arabic" },
-  { id: 4, text: "Bengali" },
-  { id: 5, text: "Chinese" },
-  { id: 6, text: "French" },
-  { id: 7, text: "German" },
-  { id: 8, text: "Hindi" },
-  { id: 9, text: "Indonesian" },
-  { id: 10, text: "Italian" },
-  { id: 11, text: "Japanese" },
-  { id: 12, text: "Korean" },
-  { id: 13, text: "Portuguese" },
-  { id: 14, text: "Russian" },
-  { id: 15, text: "Spanish" },
+  "All",
+  "English",
+  "Arabic",
+  "Bengali",
+  "Chinese",
+  "French",
+  "German",
+  "Hindi",
+  "Indonesian",
+  "Italian",
+  "Japanese",
+  "Korean",
+  "Portuguese",
+  "Russian",
+  "Spanish",
 ];
-
 export let selectBadges = [
-  { id: 1, text: "All" },
-  { id: 2, text: "Bestseller" },
-  { id: 3, text: "Featured" },
-  { id: 4, text: "New" },
-  { id: 5, text: "Popular" },
-  { id: 6, text: "Updated" },
+  "All",
+  "Bestseller",
+  "Featured",
+  "New",
+  "Popular",
+  "Updated",
 ];
-
 export let selectMentors = [
-  { id: 1, text: "All" },
-  { id: 2, text: "Available" },
-  { id: 3, text: "Not Available" },
+  "All",
+  "Available",
+  "Not Available",
 ];
-
 export let editSubjects = [
   { id: 1, text: "Arts" },
   { id: 2, text: "Business" },
@@ -59,7 +55,6 @@ export let editSubjects = [
   { id: 10, text: "Physics" },
   { id: 11, text: "Social Sciences" },
 ];
-
 export let editLanguages = [
   { id: 1, text: "English" },
   { id: 2, text: "Arabic" },
@@ -76,12 +71,10 @@ export let editLanguages = [
   { id: 13, text: "Russian" },
   { id: 14, text: "Spanish" },
 ];
-
 export let editBadges = [
   { id: 1, text: "New" },
   { id: 2, text: "Featured" },
 ];
-
 export let editDurations = [
   { id: 1, text: "5 minutes" },
   { id: 2, text: "15 minutes" },
@@ -97,12 +90,10 @@ export let editDurations = [
   { id: 12, text: "4.5 hours" },
   { id: 13, text: "+5 hours" },
 ];
-
 export let editMentors = [
   { id: 1, text: "Available" },
   { id: 2, text: "Not Available" },
 ];
-
 export let editPrices = [
   { id: 1, text: "2.49" },
   { id: 2, text: "4.99" },
