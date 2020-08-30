@@ -1,6 +1,6 @@
 module.exports = {
   purge: [
-    "./src/*.svelte"
+    "./src/**/*.svelte"
   ],
   theme: {
     extend: {
@@ -30,5 +30,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/custom-forms'),
-  ],
+    require('@tailwindcss/typography'),
+  ]
 }
