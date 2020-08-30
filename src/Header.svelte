@@ -1,21 +1,15 @@
 <script>
   import { loginUser } from "./user.js";
   import { createEventDispatcher } from "svelte";
-
-  let isOpen = false;
-
   export let isLoggedIn;
-
+  let isOpen = false;
   const dispatch = createEventDispatcher();
-
   const login = (event) =>
     loginUser(event).then((data) => dispatch("auth", data));
-
   const logout = () => {
     dispatch("auth", { wallet: null, address: null });
     window.location.href = "#";
   };
-
   function handleClick() {
     isOpen = !isOpen;
   }
@@ -23,7 +17,7 @@
 
 <header class="bg-gray-900 sm:flex sm:items-center sm:justify-between">
   <div class="flex justify-between px-4 py-3">
-    <div class="text-3xl text-blue-400 font-extrabold">SyllabusWeave</div>
+    <div class="text-2xl text-blue-600 font-extrabold">SyllabusWeave</div>
     <div class="flex sm:hidden">
       <button
         on:click={handleClick}
@@ -81,22 +75,22 @@
           {#if isLoggedIn}
             <a
               href="#/home"
-              class="uppercase block px-3 py-1 rounded font-semibold text-white
+              class="block px-3 py-1 rounded font-semibold text-white
               hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <a
               href="#/editor"
-              class="uppercase block px-3 py-1 rounded font-semibold text-white
+              class="block px-3 py-1 rounded font-semibold text-white
               hover:bg-gray-700 sm:text-sm sm:px-2">
-              List Your Syllabus
+              Create a New Syllabus
             </a>
             <div>
               <button
                 type="button"
                 aria-label="Menu"
-                class="uppercase mt-1 block px-3 py-1 rounded font-semibold
-                text-white hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
+                class="mt-1 block px-3 py-1 rounded font-semibold text-white
+                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
                 on:click={logout}>
                 Logout
               </button>
@@ -104,15 +98,16 @@
           {:else}
             <a
               href="#/home"
-              class="uppercase block px-3 py-1 rounded font-semibold text-white
+              class="block px-3 py-1 rounded font-semibold text-white
               hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <div>
               <label
-                class="uppercase mt-1 block px-3 py-1 rounded font-semibold
-                text-white hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
-                Login
+                class="mt-1 block px-3 py-1 rounded font-semibold text-white
+                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
+                <span class="px-2">Login</span>
+
                 <input
                   type="file"
                   accept="application/json"
@@ -152,37 +147,37 @@
           {#if isLoggedIn}
             <a
               href="#/home"
-              class="uppercase block px-3 py-1 rounded font-semibold text-white
+              class="block px-3 py-1 rounded font-semibold text-white
               hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <a
               href="#/editor"
-              class="uppercase block px-3 py-1 rounded font-semibold text-white
+              class="block px-3 py-1 rounded font-semibold text-white
               hover:bg-gray-700 sm:text-sm sm:px-2">
-              List Your Syllabus
+              Create a New Syllabus
             </a>
             <div>
               <button
                 type="button"
                 aria-label="Menu"
-                class="uppercase mt-1 block px-3 py-1 rounded font-semibold
-                text-white hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
+                class="mt-1 block px-3 py-1 rounded font-semibold text-white
+                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
                 on:click={logout}>
                 Logout
               </button>
             </div>
           {:else}
             <a
-              href="https://google.com"
-              class="uppercase block px-3 py-1 rounded font-semibold text-white
+              href="#/home"
+              class="block px-3 py-1 rounded font-semibold text-white
               hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <div>
               <label
-                class="uppercase mt-1 block px-3 py-1 rounded font-semibold
-                text-white hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
+                class="mt-1 block px-3 py-1 rounded font-semibold text-white
+                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
                 Login
                 <input
                   type="file"

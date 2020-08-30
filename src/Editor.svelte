@@ -2,10 +2,7 @@
   import { publish } from "./syllabus.js";
   import { onMount } from "svelte";
   import { documentTitle } from "./helpers.js";
-  // import { arweave } from "./arweave.js";
-  // import { createEventDispatcher } from "svelte";
   import { quill } from "svelte-quill";
-
   import {
     editSubjects,
     editLanguages,
@@ -16,7 +13,7 @@
   } from "./populate.js";
   export let wallet;
   export let address;
-
+  let lengthToAdd = 0;
   let enablePreview = false;
   let options = {
     modules: {
@@ -24,68 +21,66 @@
         [{ header: [1, 2, 3, 4, 5, 6] }],
         ["bold", "italic", "underline", "strike"],
         ["blockquote", "code-block", "link", "image", "video"],
-
         [{ list: "ordered" }, { list: "bullet" }],
         [{ script: "sub" }, { script: "super" }],
-        [{ indent: "-1" }, { indent: "+1" }],
-        [{ direction: "rtl" }],
-
-        [{ size: ["small", "normal", "large"] }],
-
         [{ color: [] }, { background: [] }],
-        [{ font: [] }],
-        [{ align: [] }],
-
         ["clean"],
       ],
     },
     placeholder: "Start to write your syllabus...",
     theme: "snow",
   };
-
-  let syllabusContent = { html: "", text: "" };
-  // const dispatch = createEventDispatcher();
-
+  let syllabusContent = {
+    html: "Start to write your syllabus...",
+    text: "Start to write your syllabus...",
+  };
   let subjectEdited;
   let languageEdited;
   let badgeEdited;
   let durationEdited;
   let mentorEdited;
-  // let mentorsCheck = "Available";
   let priceEdited;
-
   function handleEditedSubject() {
     subject = subjectEdited.text;
   }
-
   function handleEditedLanguage() {
     language = languageEdited.text;
   }
-
   function handleEditedBadge() {
     badge = badgeEdited.text;
   }
-
   function handleEditedDuration() {
     duration = durationEdited.text;
   }
-
   function handleEditedMentor() {
     mentorAvailable = mentorEdited.text;
   }
-
   function handleEditedPrice() {
     price = priceEdited.text;
   }
-
+  function previewFile() {
+    const preview = document.querySelector("img");
+    const file = document.querySelector("input[type=file]").files[0];
+    const reader = new FileReader();
+    reader.addEventListener(
+      "load",
+      function () {
+        preview.src = reader.result;
+        imageUrl = reader.result;
+        lengthToAdd = imageUrl.length;
+      },
+      false
+    );
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
   let id = "";
   let apiVersion = "1";
   let rating = "0.0";
   let reviewCount = "0";
   let isFavorite = "false";
-  let author = "Ivan Molto";
   let status = "Published";
-
   let title = "";
   let subtitle = "";
   let imageUrl = "";
@@ -95,48 +90,22 @@
   let duration = "5 minutes";
   let price = "2.99";
   let mentorAvailable = "Available";
-  let content = "Data";
-
-  console.log(wallet);
-  console.log(address);
-
-  $: console.log(id);
-  $: console.log(title);
-  $: console.log(subtitle);
-  $: console.log(imageUrl);
-  $: console.log(duration);
-  $: console.log(language);
-  $: console.log(rating);
-  $: console.log(reviewCount);
-  $: console.log(isFavorite);
-  $: console.log(badge);
-  $: console.log(author);
-  $: console.log(mentorAvailable);
-  $: console.log(price);
-  $: console.log(subject);
-  $: console.log(status);
-  $: console.log(apiVersion);
-  $: console.log(price);
-  $: console.log(syllabusContent.html);
-
   const submitSyllabus = async (event) => {
     if (!wallet || !address) {
       return;
     }
-
     handleEditedSubject();
     handleEditedLanguage();
     handleEditedBadge();
     handleEditedDuration();
     handleEditedMentor();
     handleEditedPrice();
-
     const tx = await publish(
       {
         id: id,
         title: title,
         subtitle: subtitle,
-        imageUrl: imageUrl,
+        imageUrl: lengthToAdd,
         duration: duration,
         language: language,
         rating: rating,
@@ -148,16 +117,14 @@
         subject: subject,
         status: status,
         apiVersion: apiVersion,
-        content: syllabusContent.html,
+        content: imageUrl + syllabusContent.html,
         price: price,
       },
       wallet,
       address
     );
-
     window.location.href = `#/syllabus/${tx.id}`;
   };
-
   onMount(() => {
     documentTitle("Editor");
   });
@@ -175,7 +142,7 @@
 <div class="py-6 antialiased text-gray-900 px-6">
   <form on:submit|preventDefault={submitSyllabus}>
     <div class="max-w-2xl mx-auto">
-      <h1 class="content-center text-bold text-4xl w-full">
+      <h1 class="content-center text-bold text-2xl w-full">
         List Your Syllabus
       </h1>
       <div class="mt-4 flex flex-wrap -mx-6">
@@ -187,7 +154,6 @@
               name="title"
               class="form-input mt-1 block w-full text-gray-900 shadow
               bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
-              placeholder="Please write at least 15 characters"
               required
               on:input={(event) => (title = event.target.value)} />
           </label>
@@ -195,30 +161,19 @@
             <span class="text-gray-900">Subtitle</span>
             <input
               type="text"
-              name="content"
+              name="subtitle"
               class="form-input mt-1 block w-full text-gray-900 shadow
               bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
-              placeholder="Please write at least 20 characters"
               required
               on:input={(event) => (subtitle = event.target.value)} />
           </label>
-          <label class="block mt-4">
-            <span class="text-gray-900">Image URL</span>
-            <input
-              type="text"
-              name="imageUrl"
-              class="form-input mt-1 block w-full text-gray-900 shadow
-              bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
-              placeholder="Your Cover Image URL goes here"
-              required
-              on:input={(event) => (imageUrl = event.target.value)} />
-          </label>
-          <label class="block mt-4">
+          <label class="block mt-4" for="mentorship">
             <span class="text-gray-900">Mentorship</span>
-            <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
+            <div class="sm:flex lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
                 bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
+                name="mentorship"
                 bind:value={mentorEdited}
                 on:blur={handleEditedMentor}>
                 {#each editMentors as editMentor}
@@ -228,13 +183,14 @@
             </div>
           </label>
           {#if mentorAvailable === 'Available'}
-            <label class="block mt-4">
+            <label class="block mt-4" for="pricing">
               <span class="text-gray-900">Price in AR tokens per 30 mins</span>
-              <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
+              <div class="sm:flex lg:block lg:mx-0">
                 <select
                   class="mt-1 form-select block w-full text-gray-900 shadow
                   bg-gray-400 hover:border-gray-200 focus:bg-gray-300
                   border-none"
+                  name="pricing"
                   bind:value={priceEdited}
                   on:blur={handleEditedPrice}>
                   {#each editPrices as editPrice}
@@ -246,13 +202,14 @@
           {/if}
         </div>
         <div class="w-1/2 px-6">
-          <label class="block">
+          <label class="block" for="subject">
             <span class="text-gray-900">Subject</span>
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
                 bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
                 mr-2"
+                name="subject"
                 bind:value={subjectEdited}
                 on:blur={handleEditedSubject}>
                 {#each editSubjects as editSubject}
@@ -261,13 +218,14 @@
               </select>
             </div>
           </label>
-          <label class="block mt-4">
+          <label class="block mt-4" for="language">
             <span class="text-gray-900">Language</span>
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
                 bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
                 mr-2"
+                name="language"
                 bind:value={languageEdited}
                 on:blur={handleEditedLanguage}>
                 {#each editLanguages as editLanguage}
@@ -276,13 +234,14 @@
               </select>
             </div>
           </label>
-          <label class="block mt-4">
+          <label class="block mt-4" for="badge">
             <span class="text-gray-900">Badge</span>
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
                 bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
                 mr-2"
+                name="badge"
                 bind:value={badgeEdited}
                 on:blur={handleEditedBadge}>
                 {#each editBadges as editBadge}
@@ -291,13 +250,14 @@
               </select>
             </div>
           </label>
-          <label class="block mt-4">
+          <label class="block mt-4" for="duration">
             <span class="text-gray-900">Duration</span>
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
                 bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
                 mr-2"
+                name="duration"
                 bind:value={durationEdited}
                 on:blur={handleEditedDuration}>
                 {#each editDurations as editDuration}
@@ -306,8 +266,27 @@
               </select>
             </div>
           </label>
-
         </div>
+      </div>
+      <div class="block mt-6">
+        <label
+          class="block w-full mt-4 py-1 rounded shadow bg-gray-400 text-gray-900
+          hover:bg-gray-500 sm:mt-0 sm:text-sm">
+          <div class="ml-3 text-base">Upload Cover Image</div>
+          <input
+            type="file"
+            accept="image/*"
+            name="imageUrl"
+            class="hidden"
+            required
+            on:change={previewFile} />
+          <img
+            class="ml-3 text-base"
+            src=""
+            aria-label="Image preview"
+            height="200"
+            alt="Image preview..." />
+        </label>
       </div>
       <div class="block mt-4">
         <span class="text-gray-900">Rich Text Editor</span>
@@ -332,22 +311,20 @@
           <span class="ml-2 mt-3">Enable Preview HTML</span>
         </label>
         {#if enablePreview}
-          <div>
+          <div class="prose">
             {@html syllabusContent.html}
           </div>
         {/if}
       </div>
       <div class="mt-4 py-4 sm:text-right">
         <button
-          type="button"
+          type="submit"
           aria-label="Publish"
-          class="block w-full sm:w-auto sm:inline-block bg-blue-500
-          hover:bg-blue-400 font-semibold text-white px-6 py-2 rounded-lg"
-          on:click={submitSyllabus}>
+          class="block w-full sm:w-auto sm:inline-block bg-blue-700
+          hover:bg-blue-600 font-semibold text-white px-6 py-2 rounded-lg">
           Publish
         </button>
       </div>
     </div>
   </form>
-
 </div>

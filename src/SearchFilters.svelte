@@ -12,32 +12,24 @@
     selectBadges,
     selectMentors,
   } from "./populate.js";
-
   import { createEventDispatcher } from "svelte";
-
   let isOpen = false;
-  let searchTerm = "";
-
+  let searchTerm = $searchStore;
   let subjectsFilter = $subjectsStore;
   let badgesFilter = $badgesStore;
   let languagesFilter = $languagesStore;
   let mentorsFilter = $mentorsStore;
-
-  let subjectSelected;
-  let languageSelected;
-  let badgeSelected;
-  let mentorSelected;
-
+  let subjectSelected = $subjectsStore;
+  let languageSelected = $languagesStore;
+  let badgeSelected = $badgesStore;
+  let mentorSelected = $mentorsStore;
   const dispatch = createEventDispatcher();
-
   function applySearch() {
     searchStore.apply(searchTerm.toLowerCase());
   }
-
   function handleClick() {
     isOpen = !isOpen;
   }
-
   function applyFilter() {
     subjectsStore.apply(subjectsFilter);
     badgesStore.apply(badgesFilter);
@@ -46,21 +38,17 @@
     isOpen = !isOpen;
     dispatch("apply");
   }
-
   function handleSelectedSubject() {
-    subjectsFilter = subjectSelected.text;
+    subjectsFilter = subjectSelected;
   }
-
   function handleSelectedLanguage() {
-    languagesFilter = languageSelected.text;
+    languagesFilter = languageSelected;
   }
-
   function handleSelectedBadge() {
-    badgesFilter = badgeSelected.text;
+    badgesFilter = badgeSelected;
   }
-
   function handleSelectedMentor() {
-    mentorsFilter = mentorSelected.text;
+    mentorsFilter = mentorSelected;
   }
 </script>
 
@@ -144,7 +132,7 @@
               bind:value={subjectSelected}
               on:blur={handleSelectedSubject}>
               {#each selectSubjects as selectSubject}
-                <option value={selectSubject}>{selectSubject.text}</option>
+                <option value={selectSubject}>{selectSubject}</option>
               {/each}
             </select>
           </div>
@@ -160,7 +148,7 @@
               bind:value={languageSelected}
               on:blur={handleSelectedLanguage}>
               {#each selectLanguages as selectLanguage}
-                <option value={selectLanguage}>{selectLanguage.text}</option>
+                <option value={selectLanguage}>{selectLanguage}</option>
               {/each}
             </select>
           </div>
@@ -174,7 +162,7 @@
               bind:value={badgeSelected}
               on:blur={handleSelectedBadge}>
               {#each selectBadges as selectBadge}
-                <option value={selectBadge}>{selectBadge.text}</option>
+                <option value={selectBadge}>{selectBadge}</option>
               {/each}
             </select>
           </div>
@@ -188,7 +176,7 @@
               bind:value={mentorSelected}
               on:blur={handleSelectedMentor}>
               {#each selectMentors as selectMentor}
-                <option value={selectMentor}>{selectMentor.text}</option>
+                <option value={selectMentor}>{selectMentor}</option>
               {/each}
             </select>
           </div>
@@ -198,8 +186,8 @@
         <button
           type="button"
           aria-label="Apply Filters"
-          class="block w-full sm:w-auto sm:inline-block bg-blue-500
-          hover:bg-blue-400 font-semibold text-white px-4 py-2 rounded-lg"
+          class="block w-full sm:w-auto sm:inline-block bg-blue-700
+          hover:bg-blue-600 font-semibold text-white px-4 py-2 rounded-lg"
           on:click={applyFilter}>
           Apply
         </button>
@@ -219,7 +207,7 @@
               bind:value={subjectSelected}
               on:blur={handleSelectedSubject}>
               {#each selectSubjects as selectSubject}
-                <option value={selectSubject}>{selectSubject.text}</option>
+                <option value={selectSubject}>{selectSubject}</option>
               {/each}
             </select>
           </div>
@@ -235,7 +223,7 @@
               bind:value={languageSelected}
               on:blur={handleSelectedLanguage}>
               {#each selectLanguages as selectLanguage}
-                <option value={selectLanguage}>{selectLanguage.text}</option>
+                <option value={selectLanguage}>{selectLanguage}</option>
               {/each}
             </select>
           </div>
@@ -249,7 +237,7 @@
               bind:value={badgeSelected}
               on:blur={handleSelectedBadge}>
               {#each selectBadges as selectBadge}
-                <option value={selectBadge}>{selectBadge.text}</option>
+                <option value={selectBadge}>{selectBadge}</option>
               {/each}
             </select>
           </div>
@@ -263,7 +251,7 @@
               bind:value={mentorSelected}
               on:blur={handleSelectedMentor}>
               {#each selectMentors as selectMentor}
-                <option value={selectMentor}>{selectMentor.text}</option>
+                <option value={selectMentor}>{selectMentor}</option>
               {/each}
             </select>
           </div>
@@ -273,8 +261,8 @@
         <button
           type="button"
           aria-label="Apply Filters"
-          class="block w-full sm:w-auto sm:inline-block bg-blue-500
-          hover:bg-blue-400 font-semibold text-white px-4 py-2 rounded-lg"
+          class="block w-full sm:w-auto sm:inline-block bg-blue-700
+          hover:bg-blue-600 font-semibold text-white px-4 py-2 rounded-lg"
           on:click={applyFilter}>
           Apply
         </button>
