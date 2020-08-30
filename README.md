@@ -30,12 +30,21 @@ The Platform takes a 10% commission on each transaction including votes/tips, vo
 
 
 ## Syllabus Web App features
-
+- All syllabus can be read and explored by everyone.
+- Easy to publish and get paid for mentorship.
+- Simple and elegant search (title, subtitle, content) and filters (subject, language, badge and mentorship).
+- Syllabus by Mentor.
+- Stylish cards and cover images.
+- Rich Text Editor with preview (opt-in).
+- Login with an AR wallet.
+- Pay with AR tokens.
+- Service worker.
+- Caching mechanism.
+- Available in the new decentralized and permanent web built on top of the Arweave network.
 
 
 
 ## Get started
-
 Clone this repo and install the dependencies...
 
 ```bash
@@ -51,8 +60,8 @@ npm run dev
 
 Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
 
-## Building and running in production mode
 
+## Building and running in production mode
 To create an optimised version of the app:
 
 ```bash
@@ -60,6 +69,7 @@ npm run build
 ```
 
 You can run the newly built app with 'npm run start'. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's 'dependencies'.
+
 
 ## Lighthouse audit
 
@@ -76,4 +86,6 @@ You can run the newly built app with 'npm run start'. This uses [sirv](https://g
 
 ## Community
 https://community.xyz/#846sNrRlXoJEkdzRo0F1mCQvbGR0okJLgvzDBLoxXD0
+
+## License
 
