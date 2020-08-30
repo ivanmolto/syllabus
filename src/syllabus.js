@@ -1,23 +1,18 @@
-import {arweave, txTags, txOwner, txData, arweaveID} from "./arweave.js";
+import {arweave, txTags, txOwner, txData} from "./arweave.js";
 import {APP_NAME} from "./constants.js";
-
 export const read = async txid => {
   let tx = window.localStorage.getItem(txid);
   if (tx) {
-    return JSON.parse(tx);
+     return JSON.parse(tx);
   }
-
   tx = await arweave.transactions.get(txid);
   const clone = {...tx};
-
   clone['tags'] = txTags(tx);
   clone['data'] = await txData(tx);
   clone['owner'] = await txOwner(tx);
-  clone['owner_name'] = await arweaveID(clone.owner);
   window.localStorage.setItem(clone.id, JSON.stringify(clone));
   return clone;
 };
-
 export const publish = async (props, wallet, address) => {
   const id = props.id;
   const title = props.title;
@@ -37,15 +32,14 @@ export const publish = async (props, wallet, address) => {
   const apiVersion = props.apiVersion;
   const content = props.content;
   const timestamp = Math.round((new Date()).getTime() / 1000);
-  let transaction = await arweave.createTransaction(
+  let tx = await arweave.createTransaction(
     {
       data: content,
     },
     wallet
   );
-
-  transaction.addTag('Content-Type', 'text/html');
-
+  tx['last_tx'] = await arweave.api.get('/tx_anchor').then(x => x.data);
+  tx.addTag('Content-Type', 'text/html');
   const tags = {
     'App-Name': APP_NAME,
     'Syllabus-Id': id,
@@ -66,20 +60,22 @@ export const publish = async (props, wallet, address) => {
     'Syllabus-API': apiVersion,
     'Syllabus-Timestamp': timestamp
   };
-
   for (const [tagKey, tagValue] of Object.entries(tags)) {
-    transaction.addTag(tagKey, tagValue);
+    tx.addTag(tagKey, tagValue);
   }
-    
-  console.log(transaction);
-
-  await arweave.transactions.sign(transaction, wallet);
-  let uploader = await arweave.transactions.getUploader(transaction);
+  console.log(tx);
+  await arweave.transactions.sign(tx, wallet);
+  let uploader = await arweave.transactions.getUploader(tx);
   while (!uploader.isComplete) {
     await uploader.uploadChunk();
     console.log(
       `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-    );
+    ); 
   }
-  return transaction;
+  const clone = {...tx};
+  clone['tags'] = tags;
+  clone['data'] = content;
+  clone['owner'] = address;
+  window.localStorage.setItem(clone.id, JSON.stringify(clone));
+  return clone;
 };

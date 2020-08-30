@@ -1,22 +1,45 @@
 <script>
+  import { read } from "./syllabus.js";
   export let id;
-  export let title;
-  export let subtitle;
-  export let imageUrl;
-  export let duration;
-  export let language;
-  export let rating;
-  export let reviewCount;
-  export let isFavorite;
-  export let badge;
-  export let author;
-  export let mentorAvailable;
-  export let price;
-  export let subject;
-  export let status;
-  export let apiVersion;
-  export let content;
-  export let timestamp;
+  $: render(id);
+  let syllabus = {};
+  let title;
+  let subtitle;
+  let imageUrl;
+  let duration;
+  let language;
+  let rating;
+  let reviewCount;
+  let isFavorite;
+  let badge;
+  let author;
+  let mentorAvailable;
+  let price;
+  let subject;
+  let status;
+  let apiVersion;
+  let content;
+  let timestamp;
+  const render = async (id) => {
+    syllabus = await read(id);
+    title = syllabus["tags"]["Syllabus-Title"];
+    subtitle = syllabus["tags"]["Syllabus-Subtitle"];
+    duration = syllabus["tags"]["Syllabus-Duration"];
+    language = syllabus["tags"]["Syllabus-Language"];
+    rating = syllabus["tags"]["Syllabus-Rating"];
+    reviewCount = syllabus["tags"]["Syllabus-ReviewCount"];
+    isFavorite = syllabus["tags"]["Syllabus-IsFavorite"];
+    badge = syllabus["tags"]["Syllabus-Badge"];
+    author = syllabus["tags"]["Syllabus-Author"];
+    mentorAvailable = syllabus["tags"]["Syllabus-Mentor"];
+    price = syllabus["tags"]["Syllabus-Price"];
+    subject = syllabus["tags"]["Syllabus-Subject"];
+    status = syllabus["tags"]["Syllabus-Status"];
+    apiVersion = syllabus["tags"]["Syllabus-API"];
+    timestamp = syllabus["tags"]["Syllabus-Timestamp"];
+    imageUrl = syllabus.data.slice(0, syllabus["tags"]["Syllabus-ImageUrl"]); // syllabus["tags"]["Syllabus-ImageUrl"];
+    content = syllabus.data.slice(syllabus["tags"]["Syllabus-ImageUrl"], -1);
+  };
 </script>
 
 <div class="bg-white rounded-lg overflow-hidden shadow-lg">

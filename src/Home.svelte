@@ -1,31 +1,14 @@
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
   import SyllabusGrid from "./SyllabusGrid.svelte";
   import { documentTitle } from "./helpers.js";
   import { syllabiByApp } from "./syllabi.js";
-
-  import {
-    subjectsStore,
-    badgesStore,
-    mentorsStore,
-    syllabiStore,
-  } from "./stores.js";
-
-  const dispatch = createEventDispatcher();
-
+  import { syllabiStore } from "./stores.js";
   let tempSyllabi = [];
   let syllabi = [];
-  console.log($syllabiStore);
-
-  /* let subjectsFilter = $subjectsStore;
-  let badgesFilter = $badgesStore;
-  let mentorsFilter = $mentorsStore; */
-
   onMount(async () => {
     tempSyllabi = await syllabiByApp();
-    console.log(tempSyllabi.length);
     for (let i = 0; i < tempSyllabi.length; i++) {
-      console.log(tempSyllabi[i]);
       let item = {
         id: tempSyllabi[i].id,
         title: tempSyllabi[i].tags["Syllabus-Title"],
@@ -48,9 +31,7 @@
       };
       syllabi.push(item);
     }
-    console.log(syllabi);
     syllabiStore.set(syllabi);
-    console.log($syllabiStore);
     documentTitle();
   });
 </script>

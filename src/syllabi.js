@@ -1,7 +1,16 @@
 import { arweave } from "./arweave.js";
 import { read } from "./syllabus.js";
 import { APP_NAME } from "./constants.js";
-
+export const syllabiByApp = async() => {
+  const txIds = await arweave.arql(
+    {
+      op: 'equals',
+      expr1: 'App-Name',
+      expr2: APP_NAME
+    }
+  );
+  return await fillTxIdsWithData(txIds);
+};
 export const syllabiByAddress = async address => {
   const txIds = await arweave.arql(
     {
@@ -19,19 +28,7 @@ export const syllabiByAddress = async address => {
     }
   );
   return await fillTxIdsWithData(txIds);
-};
-
-export const syllabiByApp = async() => {
-  const txIds = await arweave.arql(
-    {
-      op: 'equals',
-      expr1: 'App-Name',
-      expr2: APP_NAME
-    }
-  );
-  return await fillTxIdsWithData(txIds);
-};
-
+}
 const fillTxIdsWithData = async txIds => {
   if (!txIds.length) {
     return [];
