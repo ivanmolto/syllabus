@@ -8,6 +8,146 @@
     mentorsStore,
   } from "./stores.js";
   export let syllabiStore;
+  import { onMount } from "svelte";
+  import { syllabiByApp } from "./syllabi.js";
+  let syllabiSearch = [];
+  let resultsSearch = [];
+  let resultsFilter = [1];
+  let filtersEnded = false;
+  $: noFiltersApply = resultsFilter.length;
+  $: resultsFilter = syllabiSearch.filter((syllabusSearch) => {
+    const subject = syllabusSearch.tags["Syllabus-Subject"];
+    const language = syllabusSearch.tags["Syllabus-Language"];
+    const badge = syllabusSearch.tags["Syllabus-Badge"];
+    const mentorAvailable = syllabusSearch.tags["Syllabus-Mentor"];
+    if ($subjectsStore == "All") {
+      if ($languagesStore == "All") {
+        if ($badgesStore == "All") {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return "All";
+          } else {
+            filtersEnded = true;
+            return mentorAvailable.includes($mentorsStore);
+          }
+        } else {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return badge.includes($badgesStore);
+          } else {
+            filtersEnded = true;
+            return (
+              badge.includes($badgesStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        }
+      } else {
+        if ($badgesStore == "All") {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return language.includes($languagesStore);
+          } else {
+            filtersEnded = true;
+            return (
+              language.includes($languagesStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        } else {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return (
+              language.includes($languagesStore) && badge.includes($badgesStore)
+            );
+          } else {
+            filtersEnded = true;
+            return (
+              language.includes($languagesStore) &&
+              badge.includes($badgesStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        }
+      }
+    } else {
+      if ($languagesStore == "All") {
+        if ($badgesStore == "All") {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return subject.includes($subjectsStore);
+          } else {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        } else {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) && badge.includes($badgesStore)
+            );
+          } else {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) &&
+              badge.includes($badgesStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        }
+      } else {
+        if ($badgesStore == "All") {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) &&
+              language.includes($languagesStore)
+            );
+          } else {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) &&
+              language.includes($languagesStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        } else {
+          if ($mentorsStore == "All") {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) &&
+              language.includes($languagesStore) &&
+              badge.includes($badgesStore)
+            );
+          } else {
+            filtersEnded = true;
+            return (
+              subject.includes($subjectsStore) &&
+              language.includes($languagesStore) &&
+              badge.includes($badgesStore) &&
+              mentorAvailable.includes($mentorsStore)
+            );
+          }
+        }
+      }
+    }
+  });
+  $: resultsSearch = syllabiSearch.filter((syllabusSearch) => {
+    const title = syllabusSearch.tags["Syllabus-Title"].toLowerCase();
+    const subtitle = syllabusSearch.tags["Syllabus-Subtitle"].toLowerCase();
+    const content = syllabusSearch.data.toLowerCase();
+    return (
+      title.includes($searchStore) ||
+      subtitle.includes($searchStore) ||
+      content.includes($searchStore)
+    );
+  });
+  onMount(async () => {
+    syllabiSearch = await syllabiByApp();
+  });
 </script>
 
 <style>
@@ -17,7 +157,6 @@
     grid-template-columns: 1fr;
     grid-gap: 1rem;
   }
-
   @media (min-width: 640px) {
     section {
       grid-template-columns: repeat(1, 1fr);
@@ -41,7 +180,7 @@
 </style>
 
 {#if $searchStore == ''}
-  <h3 class="px-6 py-6 text-gray-900 text-bold text-3xl">
+  <h3 class="px-6 py-6 text-gray-900 text-bold text-2xl truncate">
     {#if $badgesStore == 'All' && $languagesStore == 'All' && $mentorsStore != 'All' && $subjectsStore == 'All'}
       {$mentorsStore} Mentors for Syllabi
     {:else if $badgesStore == 'All' && $languagesStore == 'All' && $mentorsStore != 'All'}
@@ -67,173 +206,29 @@
         {#if $languagesStore == 'All'}
           {#if $badgesStore == 'All'}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {:else if syllabus.badge == $badgesStore}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {/if}
         {:else if syllabus.language == $languagesStore}
           {#if $badgesStore == 'All'}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {:else if syllabus.badge == $badgesStore}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {/if}
         {/if}
@@ -241,210 +236,71 @@
         {#if $languagesStore == 'All'}
           {#if $badgesStore == 'All'}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {:else if syllabus.badge == $badgesStore}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {/if}
         {:else if syllabus.language == $languagesStore}
           {#if $badgesStore == 'All'}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {:else if syllabus.badge == $badgesStore}
             {#if $mentorsStore == 'All'}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {:else if syllabus.mentorAvailable == $mentorsStore}
-              <SyllabusItem
-                id={syllabus.id}
-                title={syllabus.title}
-                subtitle={syllabus.subtitle}
-                imageUrl={syllabus.imageUrl}
-                duration={syllabus.duration}
-                language={syllabus.language}
-                rating={syllabus.rating}
-                reviewCount={syllabus.reviewCount}
-                isFavorite={syllabus.isFavorite}
-                badge={syllabus.badge}
-                author={syllabus.author}
-                mentorAvailable={syllabus.mentorAvailable}
-                price={syllabus.price}
-                subject={syllabus.subject}
-                status={syllabus.status}
-                apiVersion={syllabus.apiVersion}
-                timestamp={syllabus.timestamp}
-                content={syllabus.content} />
+              <SyllabusItem id={syllabus.id} />
             {/if}
           {/if}
         {/if}
       {/if}
     {/each}
   </section>
+  {#if filtersEnded && noFiltersApply == 0}
+    <h3
+      class="px-6 py-6 text-gray-900 text-bold text-xl md:text-xl lg:text-2xl
+      xl:text-2xl">
+      Sorry, there are no syllabus for these filters
+      <br />
+      Try filter for something else
+    </h3>
+  {/if}
 {:else}
-  <h3 class="px-6 py-6 text-gray-900 text-bold text-3xl">
-    Search results for {$searchStore}
-  </h3>
-  <section class="mt-2 px-6">
-    {#each syllabiStore as syllabus}
-      {#if syllabus.title
-        .toLowerCase()
-        .includes(
-          $searchStore
-        ) || syllabus.subtitle.toLowerCase().includes($searchStore)}
-        <SyllabusItem
-          id={syllabus.id}
-          title={syllabus.title}
-          subtitle={syllabus.subtitle}
-          imageUrl={syllabus.imageUrl}
-          duration={syllabus.duration}
-          language={syllabus.language}
-          rating={syllabus.rating}
-          reviewCount={syllabus.reviewCount}
-          isFavorite={syllabus.isFavorite}
-          badge={syllabus.badge}
-          author={syllabus.author}
-          mentorAvailable={syllabus.mentorAvailable}
-          price={syllabus.price}
-          subject={syllabus.subject}
-          status={syllabus.status}
-          apiVersion={syllabus.apiVersion}
-          timestamp={syllabus.timestamp}
-          content={syllabus.content} />
-      {/if}
-    {/each}
-  </section>
+  {#if resultsSearch.length > 0}
+    <h3 class="px-6 py-6 text-gray-900 text-bold text-2xl">
+      Search results for "{$searchStore}"
+    </h3>
+    <section class="mt-2 px-6">
+      {#each syllabiStore as syllabus}
+        {#if syllabus.title
+          .toLowerCase()
+          .includes(
+            $searchStore
+          ) || syllabus.subtitle
+            .toLowerCase()
+            .includes(
+              $searchStore
+            ) || syllabus.content.toLowerCase().includes($searchStore)}
+          <SyllabusItem id={syllabus.id} />
+        {/if}
+      {/each}
+    </section>
+  {:else}
+    <h3
+      class="px-6 py-6 text-gray-900 text-bold text-2xl md:text-2xl lg:text-3xl
+      xl:text-3xl">
+      Sorry, there are no syllabus for "{$searchStore}"
+      <br />
+      Try searching for something else
+    </h3>
+  {/if}
 {/if}
