@@ -9,7 +9,7 @@
           rel="noopener"
           aria-label="SyllabusWeave Community"
           class="block px-3 py-1 rounded font-semibold text-gray-900
-          hover:text-gray-700 sm:text-sm sm:px-2">
+            hover:text-gray-700 sm:text-sm sm:px-2">
           Community
         </a>
         <a
@@ -18,7 +18,7 @@
           rel="noopener"
           aria-label="Jobs Board"
           class="block px-3 py-1 rounded font-semibold text-gray-900
-          hover:text-gray-700 sm:text-sm sm:px-2">
+            hover:text-gray-700 sm:text-sm sm:px-2">
           Jobs Board
         </a>
         <a
@@ -27,17 +27,17 @@
           rel="noopener"
           aria-label="Claim Token to Arweave Team"
           class="block px-3 py-1 rounded font-semibold text-gray-900
-          hover:text-gray-700 sm:text-sm sm:px-2">
+            hover:text-gray-700 sm:text-sm sm:px-2">
           Claim Token
         </a>
         <div class="flex pt-4 sm:pt-0 md:pt-0 lg:pt-0 xl:pt-0">
           <a
-            href="https://discord.com"
+            href="https://discord.gg/pJsMtM"
             target="_blank"
             rel="noopener"
             aria-label="SyllabusWeave Discord"
             class="flex-grow block px-3 py-1 rounded font-semibold text-gray-900
-            hover:text-gray-700 sm:text-sm sm:px-2">
+              hover:text-gray-700 sm:text-sm sm:px-2">
             <svg
               class="h-5 w-5 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -76,12 +76,12 @@
             </svg>
           </a>
           <a
-            href="https://twitter.com/ivanmolto"
+            href="https://twitter.com"
             target="_blank"
             rel="noopener"
             aria-label="SyllabusWeave Twitter"
             class="flex-grow block px-3 py-1 rounded font-semibold text-gray-900
-            hover:text-gray-700 sm:text-sm sm:px-2">
+              hover:text-gray-700 sm:text-sm sm:px-2">
             <svg
               class="h-5 w-5 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@
             rel="noopener"
             aria-label="SyllabusWeave Github"
             class="flex-grow block px-3 py-1 rounded font-semibold text-gray-900
-            hover:text-gray-700 sm:text-sm sm:px-2">
+              hover:text-gray-700 sm:text-sm sm:px-2">
             <svg
               class="h-5 w-5 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +145,7 @@
             rel="noopener"
             aria-label="SyllabusWeave mail"
             class="flex-grow block px-3 py-1 rounded font-semibold text-gray-900
-            hover:text-gray-700 sm:text-sm sm:px-2">
+              hover:text-gray-700 sm:text-sm sm:px-2">
             <svg
               class="h-5 w-5 fill-current"
               xmlns="http://www.w3.org/2000/svg"
