@@ -72,7 +72,7 @@ You can run the newly built app with 'npm run start'. This uses [sirv](https://g
 
 
 ## Lighthouse audit
-
+![alt text](https://github.com/ivanmolto/syllabus/blob/master/lighthouse-audit.png)
 
 
 ## What is in the Roadmap
@@ -88,4 +88,5 @@ You can run the newly built app with 'npm run start'. This uses [sirv](https://g
 https://community.xyz/#846sNrRlXoJEkdzRo0F1mCQvbGR0okJLgvzDBLoxXD0
 
 ## License
+[MIT License](https://github.com/ivanmolto/syllabus/blob/master/LICENSE)
 
