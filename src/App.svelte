@@ -53,7 +53,7 @@
   {:else if page === 'editor'}
     <Editor {wallet} {address} />
   {:else if page === 'syllabus'}
-    <Syllabus {prevPage} {txid} />
+    <Syllabus {wallet} {address} {prevPage} {txid} />
   {:else if page === 'mentored'}
     <Mentored {prevPage} {txid} />
   {/if}

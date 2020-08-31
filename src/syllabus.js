@@ -63,14 +63,10 @@ export const publish = async (props, wallet, address) => {
   for (const [tagKey, tagValue] of Object.entries(tags)) {
     tx.addTag(tagKey, tagValue);
   }
-  console.log(tx);
   await arweave.transactions.sign(tx, wallet);
   let uploader = await arweave.transactions.getUploader(tx);
   while (!uploader.isComplete) {
     await uploader.uploadChunk();
-    console.log(
-      `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-    ); 
   }
   const clone = {...tx};
   clone['tags'] = tags;

@@ -1,4 +1,6 @@
 <script>
+  import { arweave } from "./arweave.js";
+  import { readContract, selectWeightedPstHolder } from "smartweave";
   import { publish } from "./syllabus.js";
   import { onMount } from "svelte";
   import { documentTitle } from "./helpers.js";
@@ -11,6 +13,7 @@
     editMentors,
     editPrices,
   } from "./populate.js";
+  import { CONTRACTID } from "./constants.js";
   export let wallet;
   export let address;
   let lengthToAdd = 0;
@@ -40,6 +43,8 @@
   let durationEdited;
   let mentorEdited;
   let priceEdited;
+  let pstRecipient;
+  let pstFeeRecipient = 0.05;
   function handleEditedSubject() {
     subject = subjectEdited.text;
   }
@@ -88,13 +93,29 @@
   let language = "English";
   let badge = "New";
   let duration = "5 minutes";
-  let price = "2.99";
+  let price = "2.49";
   let mentorAvailable = "Available";
-  const submitSyllabus = async (event) => {
+  async function getContractState() {
+    return readContract(arweave, CONTRACTID).then((state) => {
+      return state;
+    });
+  }
+  const submitSyllabus = async () => {
     if (!wallet || !address) {
       return;
     }
-    handleEditedSubject();
+
+    let contractState = await getContractState();
+    pstRecipient = selectWeightedPstHolder(contractState.balances);
+    let pstTx = await arweave.createTransaction(
+      {
+        target: pstRecipient,
+        quantity: arweave.ar.arToWinston(pstFeeRecipient),
+      },
+      wallet
+    );
+    await arweave.transactions.sign(pstTx, wallet);
+    await arweave.transactions.post(pstTx);
     handleEditedLanguage();
     handleEditedBadge();
     handleEditedDuration();
@@ -153,7 +174,7 @@
               type="text"
               name="title"
               class="form-input mt-1 block w-full text-gray-900 shadow
-              bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
+                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
               required
               on:input={(event) => (title = event.target.value)} />
           </label>
@@ -163,7 +184,7 @@
               type="text"
               name="subtitle"
               class="form-input mt-1 block w-full text-gray-900 shadow
-              bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
+                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
               required
               on:input={(event) => (subtitle = event.target.value)} />
           </label>
@@ -172,7 +193,8 @@
             <div class="sm:flex lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
-                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none"
+                  bg-gray-400 hover:border-gray-200 focus:bg-gray-300
+                  border-none"
                 name="mentorship"
                 bind:value={mentorEdited}
                 on:blur={handleEditedMentor}>
@@ -188,8 +210,8 @@
               <div class="sm:flex lg:block lg:mx-0">
                 <select
                   class="mt-1 form-select block w-full text-gray-900 shadow
-                  bg-gray-400 hover:border-gray-200 focus:bg-gray-300
-                  border-none"
+                    bg-gray-400 hover:border-gray-200 focus:bg-gray-300
+                    border-none"
                   name="pricing"
                   bind:value={priceEdited}
                   on:blur={handleEditedPrice}>
@@ -207,8 +229,8 @@
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
-                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
-                mr-2"
+                  bg-gray-400 hover:border-gray-200 focus:bg-gray-300
+                  border-none mr-2"
                 name="subject"
                 bind:value={subjectEdited}
                 on:blur={handleEditedSubject}>
@@ -223,8 +245,8 @@
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
-                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
-                mr-2"
+                  bg-gray-400 hover:border-gray-200 focus:bg-gray-300
+                  border-none mr-2"
                 name="language"
                 bind:value={languageEdited}
                 on:blur={handleEditedLanguage}>
@@ -239,8 +261,8 @@
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
-                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
-                mr-2"
+                  bg-gray-400 hover:border-gray-200 focus:bg-gray-300
+                  border-none mr-2"
                 name="badge"
                 bind:value={badgeEdited}
                 on:blur={handleEditedBadge}>
@@ -255,8 +277,8 @@
             <div class="sm:flex sm:-mx-2 lg:block lg:mx-0">
               <select
                 class="mt-1 form-select block w-full text-gray-900 shadow
-                bg-gray-400 hover:border-gray-200 focus:bg-gray-300 border-none
-                mr-2"
+                  bg-gray-400 hover:border-gray-200 focus:bg-gray-300
+                  border-none mr-2"
                 name="duration"
                 bind:value={durationEdited}
                 on:blur={handleEditedDuration}>
@@ -271,7 +293,7 @@
       <div class="block mt-6">
         <label
           class="block w-full mt-4 py-1 rounded shadow bg-gray-400 text-gray-900
-          hover:bg-gray-500 sm:mt-0 sm:text-sm">
+            hover:bg-gray-500 sm:mt-0 sm:text-sm">
           <div class="ml-3 text-base">Upload Cover Image</div>
           <input
             type="file"
@@ -293,7 +315,7 @@
       </div>
       <div
         class="mt-2 block w-full text-2xl text-gray-900 shadow bg-gray-400
-        hover:border-gray-200 focus:bg-gray-300 border-none">
+          hover:border-gray-200 focus:bg-gray-300 border-none">
         <div
           class="editor"
           use:quill={options}
@@ -304,7 +326,7 @@
         <label class="flex">
           <input
             class="mt-3 form-checkbox h-5 w-5 block text-gray-900 bg-gray-400
-            hover:border-gray-200 focus:bg-gray-300 border-none"
+              hover:border-gray-200 focus:bg-gray-300 border-none"
             type="checkbox"
             name="preview"
             bind:checked={enablePreview} />
@@ -321,9 +343,10 @@
           type="submit"
           aria-label="Publish"
           class="block w-full sm:w-auto sm:inline-block bg-blue-700
-          hover:bg-blue-600 font-semibold text-white px-6 py-2 rounded-lg">
+            hover:bg-blue-600 font-semibold text-white px-6 py-2 rounded-lg">
           Publish
         </button>
+        <div>PST Holders fee included</div>
       </div>
     </div>
   </form>
