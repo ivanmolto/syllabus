@@ -1,4 +1,4 @@
-{
+	{
 	"background_color": "#e2e8f0",
 	"theme_color": "#000000",
 	"display": "fullscreen",
@@ -23,5 +23,5 @@
 			"type": "image/png",
 			"purpose": "any maskable"
 		}
-]
+	]
 }

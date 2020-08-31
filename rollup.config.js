@@ -82,7 +82,7 @@ export default {
 		clearScreen: false
 	},
 	
-	/* input: 'src/service-worker.js',
+	input: 'src/service-worker.js',
 	output: {
 			file: 'public/service-worker.js',
 			format: 'esm'
@@ -91,5 +91,5 @@ export default {
 		replace({
 			TIMESTAMP: Date.now()
 		})
-	] */
+	]
 };
