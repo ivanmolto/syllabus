@@ -1,4 +1,4 @@
-const CACHE_NAME = `SyllabusWeave_cache_${1598713865331}`;
+const CACHE_NAME = `SyllabusWeave_cache_${1598869907915}`;
 self.addEventListener('install', event => {
   event.waitUntil(
     caches

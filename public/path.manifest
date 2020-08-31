@@ -1,0 +1,39 @@
+{
+    "manifest": "arweave/paths",
+    "version": "1.0.0",
+    "index": {
+        "path": "index.html"
+    },
+    "paths": {
+        "icons/favicon.png": {
+            "id": "jZSV--VTSpqlcMVXqrnvTaA2xbhzbIP9bpN5ySSoJzI"
+        },
+        "icons/icon-192.png": {
+            "id": "yV5Rh1-qHRsRyEtKeLEKypAGepfTg9DwXkUSqwpOGpg"
+        },
+        "icons/icon-512.png": {
+            "id": "m-u9CFYFblNT4zzOfGRia_LyyzSeZqm3gKGV2sje--Q"
+        },
+        "icons/maskable-icon.png": {
+            "id": "je0MzaAwrLhibOvMOuG5kdzU-aFAYbsiE20IkKLng34"
+        },
+        "bundle.css": {
+            "id": "Y6l9g0ivV_2PmDer9FB_-Rs3MGMWFy6rGSdGpEj19rE"
+        },
+        "bundle.js": {
+            "id": "64JiS9rN4hTWbgjWIdNGaqdypoFcinmJyNJe8w0qE0Y"
+        },
+        "index.css": {
+            "id": "XwKH3K9Jjo0257jTsxqxtnlKjBncx4ttkgkvBnoqMlE"
+        },
+        "index.html": {
+            "id": "fezEXqiWXfdwV9DAbVAWzC2rAlUlIuf6Nl8A38Dzubw"
+        },
+        "manifest.json": {
+            "id": "wn_ST1MwmFTAaeBiFITM_IS72BHiH7L8AMEjcP1Pzuk"
+        },
+        "service-worker.js": {
+            "id": "097ln_yTM7a2MdciSZP8ZKxc0S3UbdrY68NU2mssvrI"
+        }
+    }
+}
