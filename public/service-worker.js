@@ -1,4 +1,11 @@
-const CACHE_NAME = `SyllabusWeave_cache_${1598869907915}`;
+const CACHE_NAME = `SyllabusWeave_cache_${1598888834953}`;
+const shell = [
+	'/',
+	'/manifest.json',
+	'/index.css',
+	'/build/bundle.js',
+	'/build/bundle.css'
+];
 self.addEventListener('install', event => {
   event.waitUntil(
     caches
