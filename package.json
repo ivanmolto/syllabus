@@ -1,6 +1,12 @@
 {
-  "name": "svelte-app",
+  "name": "syllabusweave",
   "version": "1.0.0",
+  "author": "Ivan Molto",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanmolto/syllabus.git"
+  },
+  "license": "MIT",
   "scripts": {
     "watch:tailwind": "postcss public/tailwind.css -o public/index.css -w",
     "build:tailwind": "NODE_ENV=production postcss public/tailwind.css -o public/index.css",
