@@ -24,7 +24,7 @@
         type="button"
         aria-label="Menu"
         class="px-2 text-gray-500 hover:text-white focus:outline-none
-        focus:text-white">
+          focus:text-white">
         <svg
           class="h-6 w-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
@@ -64,25 +64,25 @@
         </div>
         <input
           class="block w-full border border-transparent bg-gray-200
-          focus:outline-none focus:bg-white focus:border-gray-300 text-gray-900
-          rounded-lg pl-10 pr-4 py-2"
+            focus:outline-none focus:bg-white focus:border-gray-300
+            text-gray-900 rounded-lg pl-10 pr-4 py-2"
           placeholder="Search for topics" />
       </div>
       <div class="sm:flex sm:items-center">
         <div
           class="px-2 pt-2 pb-5 border-b border-gray-800 sm:flex sm:border-b-0
-          sm:py-0 sm:px-0">
+            sm:py-0 sm:px-0">
           {#if isLoggedIn}
             <a
               href="#/home"
               class="block px-3 py-1 rounded font-semibold text-white
-              hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <a
               href="#/editor"
               class="block px-3 py-1 rounded font-semibold text-white
-              hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 sm:text-sm sm:px-2">
               Create a New Syllabus
             </a>
             <div>
@@ -90,7 +90,7 @@
                 type="button"
                 aria-label="Menu"
                 class="mt-1 block px-3 py-1 rounded font-semibold text-white
-                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
+                  hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
                 on:click={logout}>
                 Logout
               </button>
@@ -99,13 +99,13 @@
             <a
               href="#/home"
               class="block px-3 py-1 rounded font-semibold text-white
-              hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <div>
               <label
                 class="mt-1 block px-3 py-1 rounded font-semibold text-white
-                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
+                  hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
                 <span class="px-2">Login</span>
 
                 <input
@@ -136,25 +136,25 @@
         </div>
         <input
           class="block w-full border border-transparent bg-gray-200
-          focus:outline-none focus:bg-white focus:border-gray-300 text-gray-900
-          rounded-lg pl-10 pr-4 py-2"
-          placeholder="Search by keywords" />
+            focus:outline-none focus:bg-white focus:border-gray-300
+            text-gray-900 rounded-lg pl-10 pr-4 py-2"
+          placeholder="Search for topics" />
       </div>
       <div class="sm:flex sm:items-center">
         <div
           class="px-2 pt-2 pb-5 border-b border-gray-800 sm:flex sm:border-b-0
-          sm:py-0 sm:px-0">
+            sm:py-0 sm:px-0">
           {#if isLoggedIn}
             <a
               href="#/home"
               class="block px-3 py-1 rounded font-semibold text-white
-              hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <a
               href="#/editor"
               class="block px-3 py-1 rounded font-semibold text-white
-              hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 sm:text-sm sm:px-2">
               Create a New Syllabus
             </a>
             <div>
@@ -162,7 +162,7 @@
                 type="button"
                 aria-label="Menu"
                 class="mt-1 block px-3 py-1 rounded font-semibold text-white
-                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
+                  hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
                 on:click={logout}>
                 Logout
               </button>
@@ -171,19 +171,14 @@
             <a
               href="#/home"
               class="block px-3 py-1 rounded font-semibold text-white
-              hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <div>
               <label
                 class="mt-1 block px-3 py-1 rounded font-semibold text-white
-                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
-                Login
-                <input
-                  type="file"
-                  accept="application/json"
-                  class="hidden"
-                  on:change={login} />
+                  hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
+                Login <input type="file" accept="application/json" class="hidden" on:change={login} />
               </label>
             </div>
           {/if}
