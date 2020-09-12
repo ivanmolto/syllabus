@@ -31,23 +31,23 @@
   let pstFeeRecipient = 0.25;
   const render = async (txid) => {
     syllabus = await read(txid);
-    title = syllabus["tags"]["Syllabus-Title"];
-    subtitle = syllabus["tags"]["Syllabus-Subtitle"];
-    duration = syllabus["tags"]["Syllabus-Duration"];
-    language = syllabus["tags"]["Syllabus-Language"];
-    rating = syllabus["tags"]["Syllabus-Rating"];
-    reviewCount = syllabus["tags"]["Syllabus-ReviewCount"];
-    isFavorite = syllabus["tags"]["Syllabus-IsFavorite"];
-    badge = syllabus["tags"]["Syllabus-Badge"];
-    author = syllabus["tags"]["Syllabus-Author"];
-    mentorAvailable = syllabus["tags"]["Syllabus-Mentor"];
-    price = syllabus["tags"]["Syllabus-Price"];
-    subject = syllabus["tags"]["Syllabus-Subject"];
-    status = syllabus["tags"]["Syllabus-Status"];
-    apiVersion = syllabus["tags"]["Syllabus-API"];
-    timestamp = syllabus["tags"]["Syllabus-Timestamp"];
-    imageUrl = syllabus.data.slice(0, syllabus["tags"]["Syllabus-ImageUrl"]);
-    content = syllabus.data.slice(syllabus["tags"]["Syllabus-ImageUrl"], -1);
+    title = syllabus["tags"]["Title"];
+    subtitle = syllabus["tags"]["Subtitle"];
+    duration = syllabus["tags"]["Duration"];
+    language = syllabus["tags"]["Language"];
+    rating = syllabus["tags"]["Rating"];
+    reviewCount = syllabus["tags"]["ReviewCount"];
+    isFavorite = syllabus["tags"]["IsFavorite"];
+    badge = syllabus["tags"]["Badge"];
+    author = syllabus["tags"]["Author"];
+    mentorAvailable = syllabus["tags"]["Mentor"];
+    price = syllabus["tags"]["Price"];
+    subject = syllabus["tags"]["Subject"];
+    status = syllabus["tags"]["Status"];
+    apiVersion = syllabus["tags"]["API"];
+    timestamp = syllabus["tags"]["Timestamp"];
+    imageUrl = syllabus.data.slice(0, syllabus["tags"]["ImageUrl"]);
+    content = syllabus.data.slice(syllabus["tags"]["ImageUrl"], -1);
   };
   async function getContractState() {
     return readContract(arweave, CONTRACTID).then((state) => {

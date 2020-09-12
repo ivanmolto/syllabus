@@ -16,10 +16,10 @@
   let filtersEnded = false;
   $: noFiltersApply = resultsFilter.length;
   $: resultsFilter = syllabiSearch.filter((syllabusSearch) => {
-    const subject = syllabusSearch.tags["Syllabus-Subject"];
-    const language = syllabusSearch.tags["Syllabus-Language"];
-    const badge = syllabusSearch.tags["Syllabus-Badge"];
-    const mentorAvailable = syllabusSearch.tags["Syllabus-Mentor"];
+    const subject = syllabusSearch.tags["Subject"];
+    const language = syllabusSearch.tags["Language"];
+    const badge = syllabusSearch.tags["Badge"];
+    const mentorAvailable = syllabusSearch.tags["Mentor"];
     if ($subjectsStore == "All") {
       if ($languagesStore == "All") {
         if ($badgesStore == "All") {
@@ -136,8 +136,8 @@
     }
   });
   $: resultsSearch = syllabiSearch.filter((syllabusSearch) => {
-    const title = syllabusSearch.tags["Syllabus-Title"].toLowerCase();
-    const subtitle = syllabusSearch.tags["Syllabus-Subtitle"].toLowerCase();
+    const title = syllabusSearch.tags["Title"].toLowerCase();
+    const subtitle = syllabusSearch.tags["Subtitle"].toLowerCase();
     const content = syllabusSearch.data.toLowerCase();
     return (
       title.includes($searchStore) ||
@@ -190,13 +190,16 @@
     {:else if $subjectsStore == 'All' && $badgesStore == 'All' && $languagesStore != 'All'}
       {$mentorsStore} Mentors for {$languagesStore} Syllabi
     {:else if $subjectsStore != 'All' && $badgesStore == 'All' && $languagesStore != 'All'}
-      {$mentorsStore} Mentors for {$languagesStore} {$subjectsStore} Syllabi
+      {$mentorsStore} Mentors for {$languagesStore}
+      {$subjectsStore} Syllabi
     {:else if $subjectsStore == 'All' && $languagesStore == 'All' && $badgesStore != 'All'}
       {$mentorsStore} Mentors for {$badgesStore} Syllabi
     {:else if $subjectsStore == 'All' && $languagesStore != 'All' && $badgesStore != 'All'}
-      {$mentorsStore} Mentors for {$languagesStore} {$badgesStore} Syllabi
+      {$mentorsStore} Mentors for {$languagesStore}
+      {$badgesStore} Syllabi
     {:else}
-      {$mentorsStore} Mentors for {$badgesStore} {$languagesStore}
+      {$mentorsStore} Mentors for {$badgesStore}
+      {$languagesStore}
       {$subjectsStore} Syllabi
     {/if}
   </h3>
@@ -268,10 +271,9 @@
   {#if filtersEnded && noFiltersApply == 0}
     <h3
       class="px-6 py-6 text-gray-900 text-bold text-xl md:text-xl lg:text-2xl
-      xl:text-2xl">
-      Sorry, there are no syllabus for these filters
-      <br />
-      Try filter for something else
+        xl:text-2xl">
+      Sorry, there are no syllabi for these filters <br /> Try filter for something
+      else
     </h3>
   {/if}
 {:else}
@@ -297,10 +299,9 @@
   {:else}
     <h3
       class="px-6 py-6 text-gray-900 text-bold text-2xl md:text-2xl lg:text-3xl
-      xl:text-3xl">
-      Sorry, there are no syllabus for "{$searchStore}"
-      <br />
-      Try searching for something else
+        xl:text-3xl">
+      Sorry, there are no syllabi for "{$searchStore}" <br /> Try searching for something
+      else
     </h3>
   {/if}
 {/if}

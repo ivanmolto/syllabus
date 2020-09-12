@@ -42,23 +42,23 @@ export const publish = async (props, wallet, address) => {
   tx.addTag('Content-Type', 'text/html');
   const tags = {
     'App-Name': APP_NAME,
-    'Syllabus-Id': id,
-    'Syllabus-Title': title,
-    'Syllabus-Subtitle': subtitle,
-    'Syllabus-ImageUrl': imageUrl,
-    'Syllabus-Duration': duration,
-    'Syllabus-Language': language,
-    'Syllabus-Rating': rating,
-    'Syllabus-ReviewCount': reviewCount,
-    'Syllabus-IsFavorite': isFavorite,
-    'Syllabus-Badge': badge,
-    'Syllabus-Author': author,
-    'Syllabus-Mentor': mentorAvailable,
-    'Syllabus-Price': price,
-    'Syllabus-Subject': subject,
-    'Syllabus-Status': status,
-    'Syllabus-API': apiVersion,
-    'Syllabus-Timestamp': timestamp
+    'Id': id,
+    'Title': title,
+    'Subtitle': subtitle,
+    'ImageUrl': imageUrl,
+    'Duration': duration,
+    'Language': language,
+    'Rating': rating,
+    'ReviewCount': reviewCount,
+    'IsFavorite': isFavorite,
+    'Badge': badge,
+    'Author': author,
+    'Mentor': mentorAvailable,
+    'Price': price,
+    'Subject': subject,
+    'Status': status,
+    'API': apiVersion,
+    'Timestamp': timestamp
   };
   for (const [tagKey, tagValue] of Object.entries(tags)) {
     tx.addTag(tagKey, tagValue);

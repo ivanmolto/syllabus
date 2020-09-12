@@ -22,23 +22,23 @@
   let timestamp;
   const render = async (id) => {
     syllabus = await read(id);
-    title = syllabus["tags"]["Syllabus-Title"];
-    subtitle = syllabus["tags"]["Syllabus-Subtitle"];
-    duration = syllabus["tags"]["Syllabus-Duration"];
-    language = syllabus["tags"]["Syllabus-Language"];
-    rating = syllabus["tags"]["Syllabus-Rating"];
-    reviewCount = syllabus["tags"]["Syllabus-ReviewCount"];
-    isFavorite = syllabus["tags"]["Syllabus-IsFavorite"];
-    badge = syllabus["tags"]["Syllabus-Badge"];
-    author = syllabus["tags"]["Syllabus-Author"];
-    mentorAvailable = syllabus["tags"]["Syllabus-Mentor"];
-    price = syllabus["tags"]["Syllabus-Price"];
-    subject = syllabus["tags"]["Syllabus-Subject"];
-    status = syllabus["tags"]["Syllabus-Status"];
-    apiVersion = syllabus["tags"]["Syllabus-API"];
-    timestamp = syllabus["tags"]["Syllabus-Timestamp"];
-    imageUrl = syllabus.data.slice(0, syllabus["tags"]["Syllabus-ImageUrl"]); // syllabus["tags"]["Syllabus-ImageUrl"];
-    content = syllabus.data.slice(syllabus["tags"]["Syllabus-ImageUrl"], -1);
+    title = syllabus["tags"]["Title"];
+    subtitle = syllabus["tags"]["Subtitle"];
+    duration = syllabus["tags"]["Duration"];
+    language = syllabus["tags"]["Language"];
+    rating = syllabus["tags"]["Rating"];
+    reviewCount = syllabus["tags"]["ReviewCount"];
+    isFavorite = syllabus["tags"]["IsFavorite"];
+    badge = syllabus["tags"]["Badge"];
+    author = syllabus["tags"]["Author"];
+    mentorAvailable = syllabus["tags"]["Mentor"];
+    price = syllabus["tags"]["Price"];
+    subject = syllabus["tags"]["Subject"];
+    status = syllabus["tags"]["Status"];
+    apiVersion = syllabus["tags"]["API"];
+    timestamp = syllabus["tags"]["Timestamp"];
+    imageUrl = syllabus.data.slice(0, syllabus["tags"]["ImageUrl"]);
+    content = syllabus.data.slice(syllabus["tags"]["ImageUrl"], -1);
   };
 </script>
 
@@ -52,31 +52,31 @@
         {#if badge == 'Bestseller'}
           <span
             class="inline-block bg-yellow-400 text-gray-800 text-xs px-2
-            rounded-md uppercase font-semibold tracking-wide">
+              rounded-md uppercase font-semibold tracking-wide">
             {badge}
           </span>
         {:else if badge == 'Featured'}
           <span
             class="inline-block bg-indigo-400 text-gray-800 text-xs px-2
-            rounded-md uppercase font-semibold tracking-wide">
+              rounded-md uppercase font-semibold tracking-wide">
             {badge}
           </span>
         {:else if badge == 'Updated'}
           <span
             class="inline-block bg-purple-400 text-gray-800 text-xs px-2
-            rounded-md uppercase font-semibold tracking-wide">
+              rounded-md uppercase font-semibold tracking-wide">
             {badge}
           </span>
         {:else if badge == 'New'}
           <span
             class="inline-block bg-blue-400 text-gray-800 text-xs px-2
-            rounded-md uppercase font-semibold tracking-wide">
+              rounded-md uppercase font-semibold tracking-wide">
             {badge}
           </span>
         {:else}
           <span
             class="inline-block bg-red-400 text-gray-800 text-xs px-2 rounded-md
-            uppercase font-semibold tracking-wide">
+              uppercase font-semibold tracking-wide">
             {badge}
           </span>
         {/if}
@@ -90,7 +90,7 @@
       </div>
       <div
         class="mt-1 text-gray-700 font-base text-medium leading-tight row-span-2
-        truncate">
+          truncate">
         {subtitle}
       </div>
       <div class="mt-2 flex items-center">
@@ -99,14 +99,14 @@
       </div>
       <div
         class="mt-1 text-gray-900 font-light text-sm leading-tight row-span-2
-        truncate">
+          truncate">
         {author}
       </div>
       <div class="items-baseline">
         {#if mentorAvailable == 'Available'}
           <span
             class="mt-2 inline-block bg-teal-200 text-teal-800 text-xs px-2
-            rounded-md uppercase font-semibold tracking-wide">
+              rounded-md uppercase font-semibold tracking-wide">
             Mentor
           </span>
         {/if}
