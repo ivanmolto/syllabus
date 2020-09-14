@@ -85,7 +85,7 @@ You can run the newly built app with 'npm run start'. This uses [sirv](https://g
 
 
 ## Community
-https://community.xyz/#846sNrRlXoJEkdzRo0F1mCQvbGR0okJLgvzDBLoxXD0
+https://community.xyz/#20dF4g9NhWvzat5A58Kbe2uF1GaBmIcVCDYDRi6XeJs
 
 ## License
 [MIT License](https://github.com/ivanmolto/syllabus/blob/master/LICENSE)
