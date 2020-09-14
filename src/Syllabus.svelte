@@ -1,6 +1,6 @@
 <script>
   import { arweave } from "./arweave.js";
-  import { readContract, selectWeightedPstHolder } from "smartweave";
+  import { readContract, selectWeightedPstHolder } from "community-js";
   import { read } from "./syllabus.js";
   import { CONTRACTID } from "./constants.js";
   export let wallet;
@@ -102,10 +102,10 @@
 {:else}
   <div class="mt-8 flex">
     <div
-      class="px-2 max-w-md mx-auto sm:max-w-xl lg:max-w-full lg:w-1/2 lg:px-12">
+      class="px-2 max-w-md mx-auto sm:max-w-lg lg:max-w-full lg:w-1/2 lg:px-12">
       <div class="xl:max-w-lg xl:ml_auto">
         <img
-          class="mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64 sm:w-full
+          class="mt-6 rounded-lg shadow-xl sm:h-64 sm:mt-8 sm:w-full
             sm:object-cover sm:object-center lg:hidden"
           src={imageUrl}
           alt={title} />
@@ -143,24 +143,23 @@
             </span>
           {/if}
         </div>
-        <div class="items-baseline" />
         <h1
-          class="text-2xl font-bold text-gray-900 leading-tight sm:mt-8
-            sm:text-4xl md:mt-1 md:text-3xl lg:mt-2 lg:text-3xl xl:mt-2
+          class="text-2xl font-bold text-gray-900 leading-tight sm:mt-2
+            sm:text-3xl md:mt-1 md:text-3xl lg:mt-2 lg:text-3xl xl:mt-2
             xl:text-4xl truncate">
           {title}
         </h1>
         <h2
-          class="text-gray-600 text-xl font-normal sm:mt-4 sm:text-2xl md:mt-1
+          class="text-gray-600 text-xl font-normal sm:mt-2 sm:text-xl md:mt-1
             md:text-xl lg:text-2xl xl:text-3xl truncate">
           {subtitle}
         </h2>
-        <span class="text-teal-800 font-semibold text-sm">{rating}</span>
-        <span class="ml-2 text-gray-800 text-sm">({reviewCount} ratings)</span>
         <div
-          class="mt-1 text-gray-900 font-light text-sm leading-tight row-span-2
-            truncate">
-          Mentored by <a class="text-blue-900 underline" href="#/mentored/{author}"> {author} </a>
+          class="mt-1 text-gray-900 font-light text-base leading-tight
+            md:truncate">
+          <a class="text-blue-900 underline" href="#/mentored/{author}">
+            {author}
+          </a>
         </div>
         {#if mentorAvailable == 'Available'}
           <form on:submit|preventDefault={submitMentor}>
@@ -171,9 +170,9 @@
                 class="inline-block px-5 py-3 rounded-lg shadow-lg bg-blue-700
                   hover:bg-blue-600 text-white tracking-wider font-semibold
                   sm:text-base">
-                Get Coached starting from AR {price}
+                Tip and Get Coached from {price} AR
               </button>
-              <div>0.25 AR PST Holders fee will be applied</div>
+              <div>PST Holders fee included</div>
             </div>
           </form>
         {/if}
