@@ -4,7 +4,7 @@
     <div class="sm:flex sm:items-center">
       <div class="px-2 pt-2 pb-5 border-gray-800 sm:flex sm:py-0 sm:px-0">
         <a
-          href="https://community.xyz/#846sNrRlXoJEkdzRo0F1mCQvbGR0okJLgvzDBLoxXD0"
+          href="https://community.xyz/#20dF4g9NhWvzat5A58Kbe2uF1GaBmIcVCDYDRi6XeJs"
           target="_blank"
           rel="noopener"
           aria-label="SyllabusWeave Community"
@@ -13,13 +13,13 @@
           Community
         </a>
         <a
-          href="https://community.xyz/#846sNrRlXoJEkdzRo0F1mCQvbGR0okJLgvzDBLoxXD0"
+          href="https://community.xyz/opportunity"
           target="_blank"
           rel="noopener"
-          aria-label="Jobs Board"
+          aria-label="Opportunities"
           class="block px-3 py-1 rounded font-semibold text-gray-900
             hover:text-gray-700 sm:text-sm sm:px-2">
-          Jobs Board
+          Opportunities
         </a>
         <a
           href="https://community.xyz/#846sNrRlXoJEkdzRo0F1mCQvbGR0okJLgvzDBLoxXD0"
@@ -32,7 +32,7 @@
         </a>
         <div class="flex pt-4 sm:pt-0 md:pt-0 lg:pt-0 xl:pt-0">
           <a
-            href="https://discord.gg/pJsMtM"
+            href="https://discord.gg/dXSDHYN"
             target="_blank"
             rel="noopener"
             aria-label="SyllabusWeave Discord"
