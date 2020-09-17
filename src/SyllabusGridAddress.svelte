@@ -13,7 +13,7 @@
   }
   @media (min-width: 640px) {
     section {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   @media (min-width: 768px) {

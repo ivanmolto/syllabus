@@ -1,6 +1,6 @@
 <script>
   import { arweave } from "./arweave.js";
-  import { readContract, selectWeightedPstHolder } from "smartweave";
+  import Community from "community-js";
   import { publish } from "./syllabus.js";
   import { onMount } from "svelte";
   import { documentTitle } from "./helpers.js";
@@ -14,6 +14,13 @@
     editPrices,
   } from "./populate.js";
   import { CONTRACTID } from "./constants.js";
+  import FilePond, { registerPlugin, supported } from "svelte-filepond";
+  import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+  import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+  import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+  import FilePondPluginFileEncode from "filepond-plugin-file-encode";
+  import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+  import FilePondPluginImageValidateSize from "filepond-plugin-image-validate-size";
   export let wallet;
   export let address;
   let lengthToAdd = 0;
@@ -63,28 +70,16 @@
   function handleEditedPrice() {
     price = priceEdited.text;
   }
-  function previewFile() {
-    const preview = document.querySelector("img");
-    const file = document.querySelector("input[type=file]").files[0];
-    const reader = new FileReader();
-    reader.addEventListener(
-      "load",
-      function () {
-        preview.src = reader.result;
-        imageUrl = reader.result;
-        lengthToAdd = imageUrl.length;
-      },
-      false
-    );
-    if (file) {
-      reader.readAsDataURL(file);
+  function handleAddFile(error, fileItem) {
+    const dataURL = fileItem.getFileEncodeDataURL();
+    imageUrl = dataURL;
+    lengthToAdd = imageUrl.length;
+    if (fileItem) {
+      dataURL;
     }
   }
   let id = "";
   let apiVersion = "1";
-  let rating = "0.0";
-  let reviewCount = "0";
-  let isFavorite = "false";
   let status = "Published";
   let title = "";
   let subtitle = "";
@@ -95,18 +90,19 @@
   let duration = "5 minutes";
   let price = "2.49";
   let mentorAvailable = "Available";
-  async function getContractState() {
-    return readContract(arweave, CONTRACTID).then((state) => {
-      return state;
-    });
-  }
   const submitSyllabus = async () => {
     if (!wallet || !address) {
       return;
     }
-
-    let contractState = await getContractState();
-    pstRecipient = selectWeightedPstHolder(contractState.balances);
+    const client = new Arweave({
+      host: "arweave.dev",
+      port: 443,
+      protocol: "https",
+      timeout: 200000,
+    });
+    let community = new Community(client);
+    await community.setCommunityTx(CONTRACTID);
+    pstRecipient = await community.selectWeightedHolder();
     let pstTx = await arweave.createTransaction(
       {
         target: pstRecipient,
@@ -129,9 +125,6 @@
         imageUrl: lengthToAdd,
         duration: duration,
         language: language,
-        rating: rating,
-        reviewCount: reviewCount,
-        isFavorite: isFavorite,
         badge: badge,
         author: address,
         mentorAvailable: mentorAvailable,
@@ -149,6 +142,17 @@
   onMount(() => {
     documentTitle("Editor");
   });
+  registerPlugin(
+    FilePondPluginImageExifOrientation,
+    FilePondPluginImagePreview,
+    FilePondPluginFileValidateType,
+    FilePondPluginFileEncode,
+    FilePondPluginFileValidateSize,
+    FilePondPluginImageValidateSize
+  );
+  let pond;
+  let name = "filepond";
+  function handleInit() {}
 </script>
 
 <style>
@@ -158,7 +162,7 @@
 </style>
 
 <svelte:head>
-  <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
 </svelte:head>
 <div class="py-6 antialiased text-gray-900 px-6">
   <form on:submit|preventDefault={submitSyllabus}>
@@ -206,7 +210,7 @@
           </label>
           {#if mentorAvailable === 'Available'}
             <label class="block mt-4" for="pricing">
-              <span class="text-gray-900">Price in AR tokens per 30 mins</span>
+              <span class="text-gray-900">Tips in AR tokens per 30 mins</span>
               <div class="sm:flex lg:block lg:mx-0">
                 <select
                   class="mt-1 form-select block w-full text-gray-900 shadow
@@ -291,24 +295,25 @@
         </div>
       </div>
       <div class="block mt-6">
-        <label
-          class="block w-full mt-4 py-1 rounded shadow bg-gray-400 text-gray-900
-            hover:bg-gray-500 sm:mt-0 sm:text-sm">
-          <div class="ml-3 text-base">Upload Cover Image</div>
-          <input
-            type="file"
-            accept="image/*"
-            name="imageUrl"
-            class="hidden"
-            required
-            on:change={previewFile} />
-          <img
-            class="ml-3 text-base"
-            src=""
-            aria-label="Image preview"
-            height="200"
-            alt="Image preview..." />
-        </label>
+        <FilePond
+          bind:this={pond}
+          {name}
+          allowFileSizeValidation={true}
+          maxFileSize={100000}
+          allowImageValidateSize={true}
+          imageValidateSizeMinWidth={480}
+          imageValidateSizeMaxWidth={480}
+          imageValidateSizeMinHeight={270}
+          imageValidateSizeMaxHeight={270}
+          imageValidateSizeLabelExpectedMinSize={'Minimum size is {minWidth} × {minHeight}'}
+          imageValidateSizeLabelExpectedMaxSize={'Maximum size is {maxWidth} × {maxHeight}'}
+          acceptedFileTypes={['image/png', 'image/jpeg']}
+          labelIdle={'Drag & Drop your cover image or <span class="filepond--label-action"> Browse </span><br><i>- only png and jpeg formats, 480px (width) x 270px (height) and max size of 100 KB -</i>'}
+          maxFiles={1}
+          allowMultiple={false}
+          oninit={handleInit}
+          onaddfile={handleAddFile}
+          required={true} />
       </div>
       <div class="block mt-4">
         <span class="text-gray-900">Rich Text Editor</span>
@@ -346,7 +351,6 @@
             hover:bg-blue-600 font-semibold text-white px-6 py-2 rounded-lg">
           Publish
         </button>
-        <div>PST Holders fee included</div>
       </div>
     </div>
   </form>

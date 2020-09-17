@@ -1,6 +1,6 @@
 <script>
   import { arweave } from "./arweave.js";
-  import { readContract, selectWeightedPstHolder } from "community-js";
+  import Community from "community-js";
   import { read } from "./syllabus.js";
   import { CONTRACTID } from "./constants.js";
   export let wallet;
@@ -14,15 +14,12 @@
   let imageUrl = "";
   let duration = "";
   let language = "";
-  let rating = "";
-  let reviewCount = "";
   let badge = "";
   let author = "";
   let mentorAvailable = "";
   $: mentorRecipient = author;
   let price = "";
   let content = "";
-  let isFavorite = "";
   let subject = "";
   let status = "";
   let apiVersion = "";
@@ -35,9 +32,6 @@
     subtitle = syllabus["tags"]["Subtitle"];
     duration = syllabus["tags"]["Duration"];
     language = syllabus["tags"]["Language"];
-    rating = syllabus["tags"]["Rating"];
-    reviewCount = syllabus["tags"]["ReviewCount"];
-    isFavorite = syllabus["tags"]["IsFavorite"];
     badge = syllabus["tags"]["Badge"];
     author = syllabus["tags"]["Author"];
     mentorAvailable = syllabus["tags"]["Mentor"];
@@ -59,9 +53,16 @@
     if (!wallet || !address) {
       return;
     }
+    const client = new Arweave({
+      host: "arweave.dev",
+      port: 443,
+      protocol: "https",
+      timeout: 200000,
+    });
 
-    let contractState = await getContractState();
-    pstRecipient = selectWeightedPstHolder(contractState.balances);
+    let community = new Community(client);
+    await community.setCommunityTx(CONTRACTID);
+    pstRecipient = await community.selectWeightedHolder();
     let pstTx = await arweave.createTransaction(
       {
         target: pstRecipient,
@@ -166,7 +167,7 @@
             <div class="mt-4 sm:mt-6">
               <button
                 type="submit"
-                aria-label="Apply Mentor"
+                aria-label="Tip Mentor"
                 class="inline-block px-5 py-3 rounded-lg shadow-lg bg-blue-700
                   hover:bg-blue-600 text-white tracking-wider font-semibold
                   sm:text-base">
