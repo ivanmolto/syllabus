@@ -95,7 +95,14 @@ export let editMentors = [
   { id: 2, text: "Not Available" },
 ];
 export let editPrices = [
-  { id: 1, text: "2.49" },
-  { id: 2, text: "4.99" },
-  { id: 3, text: "9.99" },
+  { id: 1, text: "1.00" },
+  { id: 2, text: "2.00" },
+  { id: 3, text: "3.00" },
+  { id: 4, text: "4.00" },
+  { id: 5, text: "5.00" },
+  { id: 6, text: "6.00" },
+  { id: 7, text: "7.00" },
+  { id: 8, text: "8.00" },
+  { id: 9, text: "9.00" },
+  { id: 10, text: "10.00" },
 ];
