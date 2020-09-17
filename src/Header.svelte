@@ -107,7 +107,6 @@
                 class="mt-1 block px-3 py-1 rounded font-semibold text-white
                   hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2">
                 <span class="px-2">Login</span>
-
                 <input
                   type="file"
                   accept="application/json"

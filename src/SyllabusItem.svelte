@@ -8,9 +8,6 @@
   let imageUrl;
   let duration;
   let language;
-  let rating;
-  let reviewCount;
-  let isFavorite;
   let badge;
   let author;
   let mentorAvailable;
@@ -26,9 +23,6 @@
     subtitle = syllabus["tags"]["Subtitle"];
     duration = syllabus["tags"]["Duration"];
     language = syllabus["tags"]["Language"];
-    rating = syllabus["tags"]["Rating"];
-    reviewCount = syllabus["tags"]["ReviewCount"];
-    isFavorite = syllabus["tags"]["IsFavorite"];
     badge = syllabus["tags"]["Badge"];
     author = syllabus["tags"]["Author"];
     mentorAvailable = syllabus["tags"]["Mentor"];
@@ -92,10 +86,6 @@
         class="mt-1 text-gray-700 font-base text-medium leading-tight row-span-2
           truncate">
         {subtitle}
-      </div>
-      <div class="mt-2 flex items-center">
-        <span class="text-teal-800 font-semibold text-sm">{rating}</span>
-        <span class="ml-2 text-gray-800 text-sm">({reviewCount} ratings)</span>
       </div>
       <div
         class="mt-1 text-gray-900 font-light text-sm leading-tight row-span-2

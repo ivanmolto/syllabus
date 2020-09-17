@@ -16,9 +16,6 @@
         imageUrl: tempSyllabi[i].tags["ImageUrl"],
         duration: tempSyllabi[i].tags["Duration"],
         language: tempSyllabi[i].tags["Language"],
-        rating: tempSyllabi[i].tags["Rating"],
-        reviewCount: tempSyllabi[i].tags["ReviewCount"],
-        isFavorite: tempSyllabi[i].tags["IsFavorite"],
         badge: tempSyllabi[i].tags["Badge"],
         author: tempSyllabi[i].tags["Author"],
         mentorAvailable: tempSyllabi[i].tags["Mentor"],
@@ -35,5 +32,9 @@
     documentTitle();
   });
 </script>
+
+<style global>
+  @import "https://fmy6vqrft54pubhx23wgfutpi2g27rf4fuayhrpfmffgt23c52jq.arweave.net/KzHqwiWfePoE99bsYtJvRo2vxLwtAYPF5WFKaeti7pM";
+</style>
 
 <SyllabusGrid syllabiStore={$syllabiStore} />

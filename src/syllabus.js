@@ -20,9 +20,6 @@ export const publish = async (props, wallet, address) => {
   const imageUrl = props.imageUrl;
   const duration = props.duration;
   const language = props.language;
-  const rating = props.rating;
-  const reviewCount = props.reviewCount;
-  const isFavorite = props.isFavorite;
   const badge = props.badge;
   const author = props.author;
   const mentorAvailable = props.mentorAvailable;
@@ -48,9 +45,6 @@ export const publish = async (props, wallet, address) => {
     'ImageUrl': imageUrl,
     'Duration': duration,
     'Language': language,
-    'Rating': rating,
-    'ReviewCount': reviewCount,
-    'IsFavorite': isFavorite,
     'Badge': badge,
     'Author': author,
     'Mentor': mentorAvailable,
