@@ -13,7 +13,7 @@
           Community
         </a>
         <a
-          href="https://community.xyz/opportunity"
+          href="https://community.xyz/#20dF4g9NhWvzat5A58Kbe2uF1GaBmIcVCDYDRi6XeJs/opportunity"
           target="_blank"
           rel="noopener"
           aria-label="Opportunities"
