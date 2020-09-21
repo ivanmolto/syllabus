@@ -41,3 +41,4 @@ export const mentorsStore = createMentorsStore();
 export const searchStore = createSearchStore();
 export const syllabiStore = writable([]);
 export const syllabiByMentorStore = writable([]);
+export const avatarStore = writable([]);

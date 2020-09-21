@@ -1,8 +1,10 @@
 <script>
   import { loginUser } from "./user.js";
   import { createEventDispatcher } from "svelte";
+  import Account from "./Account.svelte";
   export let isLoggedIn;
   let isOpen = false;
+  export let address;
   const dispatch = createEventDispatcher();
   const login = (event) =>
     loginUser(event).then((data) => dispatch("auth", data));
@@ -76,25 +78,24 @@
             <a
               href="#/home"
               class="block px-3 py-1 rounded font-semibold text-white
-                hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 mt-1 sm:text-sm sm:px-2">
               Syllabi
             </a>
             <a
               href="#/editor"
               class="block px-3 py-1 rounded font-semibold text-white
-                hover:bg-gray-700 sm:text-sm sm:px-2">
+                hover:bg-gray-700 mt-1 sm:text-sm sm:px-2">
               Create a New Syllabus
             </a>
-            <div>
-              <button
-                type="button"
-                aria-label="Menu"
-                class="mt-1 block px-3 py-1 rounded font-semibold text-white
-                  hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
-                on:click={logout}>
-                Logout
-              </button>
-            </div>
+            <button
+              type="button"
+              aria-label="Menu"
+              class="block px-3 py-1 rounded font-semibold text-white
+                hover:bg-gray-700 mr-4 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
+              on:click={logout}>
+              Logout
+            </button>
+            <Account {address} />
           {:else}
             <a
               href="#/home"
@@ -156,15 +157,18 @@
                 hover:bg-gray-700 sm:text-sm sm:px-2">
               Create a New Syllabus
             </a>
-            <div>
-              <button
-                type="button"
-                aria-label="Menu"
-                class="mt-1 block px-3 py-1 rounded font-semibold text-white
-                  hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
-                on:click={logout}>
-                Logout
-              </button>
+
+            <button
+              type="button"
+              aria-label="Menu"
+              class="mt-1 block px-3 py-1 rounded font-semibold text-white
+                hover:bg-gray-700 sm:mt-0 sm:text-sm sm:px-2 sm:ml-2"
+              on:click={logout}>
+              Logout
+            </button>
+            <div class="flex mt-4 ml-3">
+              <Account class="hidden sm:block" {address} />
+              <span class="ml-4 font-semibold text-gray-200 sm:hidden" />
             </div>
           {:else}
             <a
