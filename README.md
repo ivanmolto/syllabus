@@ -5,7 +5,7 @@ The learning path to become a fast expert in a new topic.
 A compelling community and marketplace publish, and manage syllabus, and mentor and get coached.
 An active project for the **Arweave Open Web Incubator** and **KERNEL Genesis Block from Gitcoin**.
 
-Your contributions are welcome!
+Your contributions are welcome! Read more on opportunities here or go to [our opportunities board in CommunityXYZ](https://community.xyz/#20dF4g9NhWvzat5A58Kbe2uF1GaBmIcVCDYDRi6XeJs/opportunity)
 
 ## Online Learning Education current scenario
 - People want to become an expert on new topic quickly, but no easy and compelling way exists.
@@ -76,12 +76,15 @@ You can run the newly built app with 'npm run start'. This uses [sirv](https://g
 
 
 ## What is in the Roadmap
-- Voting
-- Edit and Delete features
+- Edit feature
 - Gift Cards
 - Forums
-- Job Boards
 - Enhance and boost the Community
+
+## Opportunities
+- If you are a developer who loves to make things easier and a desire to change the online learning education with a permaweb importer tool, read more [here](https://community.xyz/opportunity#AORXR6I8bxBEzs-dS6X47ORWmWgDzy8y28GDMC2BD-8)
+- We are also looking for educational permaweb games such as quizzes, brain, and logic games for our upcoming section of educational games in SyllabusWeave, read more [here](https://community.xyz/opportunity#hJrGNzzYGwofrICExR8J2Vt5HS2ByfEO02WRTpFQAB8)
+- And finally, if you are the kind of person with a fearless personality, and a desire to change the online learning education with a permaweb app within a growing community, read more [here](https://community.xyz/opportunity#2TbOrzc3x-1vStnuIkaKs2gH3arUX65z-90h_VrkRcc)
 
 
 ## Community
